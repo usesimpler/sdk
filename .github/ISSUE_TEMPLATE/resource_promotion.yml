@@ -1,0 +1,44 @@
+name: Resource promotion request
+description: Ask for a resource on the Site surface or the Team integration surface
+title: "[Promotion]: "
+labels: ["promotion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tell us which resource you need on an integrator surface, and what you need to do with it. Do not paste API keys or other secrets.
+
+  - type: input
+    id: resource
+    attributes:
+      label: Resource
+      description: The product name of the resource you need.
+      placeholder: Listing
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Integrator surface
+      options:
+        - Site surface
+        - Team integration surface
+    validations:
+      required: true
+
+  - type: textarea
+    id: need
+    attributes:
+      label: What you need to do
+      description: The operation and the fields an integrator must read or write.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this surface needs it
+      description: What you cannot do with the surface as it is today.
+    validations:
+      required: true

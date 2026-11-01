@@ -1,0 +1,53 @@
+name: SDK bug
+description: Something is wrong in the Simpler API client or the integrator schema package
+title: "[SDK]: "
+labels: ["sdk"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Do not paste API keys, access tokens, or other secrets.
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - Simpler API client
+        - Integrator schema package
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The package version you installed, if you have one.
+      placeholder: 0.1.0
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the error message. Remove secrets first.
+    validations:
+      required: true

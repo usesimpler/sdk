@@ -1,0 +1,50 @@
+name: API issue
+description: The Integrator API surface did not behave as documented
+title: "[API]: "
+labels: ["api"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe what the API did from the outside. Do not paste API keys, access tokens, or other secrets.
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Integrator surface
+      options:
+        - Site surface
+        - Team integration surface
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: operation
+    attributes:
+      label: Operation
+      description: What you were trying to do, in product language.
+      placeholder: List listings for a site
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Status code and response body, with secrets removed.
+    validations:
+      required: true
+
+  - type: input
+    id: client-version
+    attributes:
+      label: Client version
+      description: Optional. The Simpler API client version, if you used it.
