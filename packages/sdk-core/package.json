@@ -1,0 +1,49 @@
+{
+  "name": "@usesimpler/sdk-core",
+  "version": "0.0.0",
+  "description": "Simpler API client for the Integrator API surface.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usesimpler/sdk.git",
+    "directory": "packages/sdk-core"
+  },
+  "bugs": {
+    "url": "https://github.com/usesimpler/sdk/issues"
+  },
+  "homepage": "https://github.com/usesimpler/sdk#readme",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "lint": "biome lint .",
+    "check-types": "pnpm --filter @usesimpler/api-schema run build && tsc --noEmit",
+    "test": "pnpm --filter @usesimpler/api-schema run build && pnpm run build && vitest run"
+  },
+  "dependencies": {
+    "@usesimpler/api-schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.0",
+    "typescript": "7.0.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

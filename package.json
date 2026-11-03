@@ -1,0 +1,23 @@
+{
+  "name": "simpler-sdk",
+  "private": true,
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "check-types": "pnpm -r run check-types",
+    "lint": "biome lint .",
+    "test": "pnpm -r run test",
+    "openapi:generate": "pnpm --filter @usesimpler/api-schema run openapi:generate",
+    "openapi:check": "pnpm openapi:generate && git diff --exit-code -- openapi/public-openapi.json",
+    "release": "pnpm run build && pnpm changeset publish",
+    "canary": "node scripts/canary-version.mjs && pnpm run build && pnpm -r publish --tag canary --no-git-checks --access public"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.14",
+    "@changesets/cli": "^2.29.8",
+    "typescript": "7.0.2"
+  }
+}

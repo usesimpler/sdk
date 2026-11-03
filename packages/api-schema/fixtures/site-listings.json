@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": "listing-1",
+      "street_address": "100 Listing St",
+      "list_price": 500000,
+      "description": "Bright rooms",
+      "list_date": "2024-06-01T00:00:00.000Z",
+      "stage": { "id": "stage-1", "name": "Active" },
+      "list_agent": {
+        "first_name": "Ada",
+        "last_name": "Lovelace",
+        "phone": "416-555-0100",
+        "photo_url": "https://cdn.example/ada.jpg"
+      }
+    }
+  ],
+  "total": 1
+}

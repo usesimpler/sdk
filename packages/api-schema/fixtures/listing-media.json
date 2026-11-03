@@ -1,0 +1,12 @@
+[
+  {
+    "id": "m1",
+    "url": "https://example.com/a.webp",
+    "thumb_url": "https://example.com/t.webp",
+    "card_url": "https://example.com/c.webp",
+    "filename": "a.webp",
+    "content_type": "image/webp",
+    "sort_order": 0,
+    "is_cover": true
+  }
+]

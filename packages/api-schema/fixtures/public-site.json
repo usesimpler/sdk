@@ -1,0 +1,13 @@
+{
+  "id": "site-1",
+  "slug": "acme",
+  "title": "Acme",
+  "description": "A public site",
+  "site_name": "Acme Realty",
+  "logo_url": null,
+  "logo_content_type": null,
+  "logo_display_width": null,
+  "logo_display_height": null,
+  "listing_id": null,
+  "listing_scope": "all"
+}
