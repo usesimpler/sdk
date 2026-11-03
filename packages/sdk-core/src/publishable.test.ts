@@ -77,6 +77,8 @@ describe("Simpler API client publish surface", () => {
     expect(built).toContain("PublicSite");
     expect(built).toContain("SiteListing");
     expect(built).not.toContain("siteListingSchema");
+    expect(built).not.toContain("street_address");
+    expect(built).not.toContain("linked_deals");
     expect(built).not.toContain("inline-public-types");
   });
 

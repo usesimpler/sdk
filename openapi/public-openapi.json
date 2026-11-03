@@ -3,7 +3,7 @@
   "info": {
     "title": "Simpler Integrator API",
     "version": "0.1.0",
-    "description": "Public OpenAPI document for the Integrator API surface. While the API is on 0.x, the current and previous minor are supported. A deprecation notice is published before a minor is dropped. After 1.0, each major is supported for at least 12 months."
+    "description": "Public OpenAPI document for the Integrator API surface. While the API is on 0.x, the current and previous minor are supported. A changelog deprecation notice is published before a minor is dropped. After 1.0, each major is supported for at least 12 months."
   },
   "servers": [
     {

@@ -20,12 +20,14 @@ describe("public OpenAPI document", () => {
     expect(doc.info.description).toContain(SUPPORT_WINDOW);
 
     const readme = readFileSync(new URL("../../../../README.md", import.meta.url), "utf8");
+    const changelog = readFileSync(new URL("../../../../CHANGELOG.md", import.meta.url), "utf8");
     const schemaReadme = readFileSync(new URL("../../README.md", import.meta.url), "utf8");
     const clientReadme = readFileSync(
       new URL("../../../sdk-core/README.md", import.meta.url),
       "utf8",
     );
     expect(readme).toContain(SUPPORT_WINDOW);
+    expect(changelog).toContain(SUPPORT_WINDOW);
     expect(schemaReadme).toContain(SUPPORT_WINDOW);
     expect(clientReadme).toContain(SUPPORT_WINDOW);
     expect(readme).toContain("openapi/public-openapi.json");

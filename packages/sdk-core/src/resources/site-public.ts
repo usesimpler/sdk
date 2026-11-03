@@ -3,6 +3,7 @@ import type {
   PageNode,
   PageWithSections,
   PublicSite,
+  SiteListing,
 } from "@usesimpler/api-schema";
 import { parseSiteListing, parseSiteListingsResponse } from "@usesimpler/api-schema/site-listing";
 import type { createTransport } from "../transport.js";
@@ -29,13 +30,17 @@ export function createPublicPagesResource(transport: Transport) {
 }
 
 /** Site API key listings: narrow body, plus media. */
-export function createSiteListingsResource(transport: Transport) {
+export function createSiteListingsResource(transport: Transport): {
+  list: () => Promise<SiteListing[]>;
+  get: (id: string) => Promise<SiteListing>;
+  listMedia: (id: string) => Promise<ListingMediaItem[]>;
+} {
   return {
-    async list() {
+    async list(): Promise<SiteListing[]> {
       const raw = await transport.request<unknown>("/listings");
       return parseSiteListingsResponse(raw);
     },
-    async get(id: string) {
+    async get(id: string): Promise<SiteListing> {
       const raw = await transport.request<unknown>(`/listings/${encodeURIComponent(id)}`);
       return parseSiteListing(raw);
     },
