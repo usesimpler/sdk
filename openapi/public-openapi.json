@@ -1,0 +1,971 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Simpler Integrator API",
+    "version": "0.1.0",
+    "description": "Public OpenAPI document for the Integrator API surface. While the API is on 0.x, the current and previous minor are supported. A deprecation notice is published before a minor is dropped. After 1.0, each major is supported for at least 12 months."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Relative to the API host"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "SiteApiKeyAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "site_ key",
+        "description": "Read-only Site API key (Authorization: Bearer site_…). Implies one Site; do not pass a site id."
+      }
+    },
+    "schemas": {
+      "SiteListListingsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SiteListing"
+            }
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "data",
+          "total"
+        ]
+      },
+      "SiteListing": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "listing_type": {
+            "type": "string",
+            "enum": [
+              "sale",
+              "lease"
+            ]
+          },
+          "list_price": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "lease_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "lease_amount_frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "list_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expiry_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "modification_timestamp": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stage_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stage": {
+            "$ref": "#/components/schemas/ListingStage"
+          },
+          "street_address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "street_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "street_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "unit_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "state_or_province": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "postal_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "county_or_parish": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "listing_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "derived_stage_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "derived_stage": {
+            "$ref": "#/components/schemas/ListingStage"
+          },
+          "linked_contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SiteListingLinkedContact"
+            }
+          },
+          "linked_deals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SiteListingLinkedDeal"
+            }
+          },
+          "linked_instagram_media": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SiteListingInstagramMedia"
+            }
+          },
+          "list_agent": {
+            "$ref": "#/components/schemas/SiteListingAgent"
+          },
+          "co_list_agent": {
+            "$ref": "#/components/schemas/SiteListingAgent"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "ListingStage": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "SiteListingLinkedContact": {
+        "type": "object",
+        "properties": {
+          "contact_id": {
+            "type": "string"
+          },
+          "relationship_type": {
+            "type": "string"
+          },
+          "sort_order": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "contact_id",
+          "relationship_type",
+          "sort_order",
+          "first_name",
+          "last_name",
+          "email",
+          "phone"
+        ]
+      },
+      "SiteListingLinkedDeal": {
+        "type": "object",
+        "properties": {
+          "deal_id": {
+            "type": "string"
+          },
+          "relationship_type": {
+            "type": "string"
+          },
+          "sort_order": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stage_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pipeline_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "from_listing_fk": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "deal_id",
+          "relationship_type",
+          "sort_order",
+          "name",
+          "stage_name",
+          "pipeline_name",
+          "from_listing_fk"
+        ]
+      },
+      "SiteListingInstagramMedia": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ig_media_id": {
+            "type": "string"
+          },
+          "media_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "permalink": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "caption": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "posted_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "insights_latest": {}
+        },
+        "required": [
+          "id",
+          "ig_media_id",
+          "media_type",
+          "permalink",
+          "caption",
+          "thumbnail_url",
+          "posted_at",
+          "created_at"
+        ]
+      },
+      "SiteListingAgent": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "photo_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name"
+        ],
+        "additionalProperties": false
+      },
+      "ListingMediaItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "thumb_url": {
+            "type": "string"
+          },
+          "card_url": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "sort_order": {
+            "type": "number"
+          },
+          "is_cover": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "thumb_url",
+          "card_url",
+          "filename",
+          "content_type",
+          "sort_order",
+          "is_cover"
+        ]
+      },
+      "PublicSite": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "site_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "logo_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "logo_content_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "logo_display_width": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "logo_display_height": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "listing_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "listing_scope": {
+            "type": "string",
+            "enum": [
+              "all",
+              "listing"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "description",
+          "site_name",
+          "logo_url",
+          "logo_content_type",
+          "logo_display_width",
+          "logo_display_height",
+          "listing_id",
+          "listing_scope"
+        ],
+        "additionalProperties": {}
+      },
+      "PageTree": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PageNode"
+        }
+      },
+      "PageNode": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "seo_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "seo_description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageNode"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "site_id",
+          "parent_id",
+          "title",
+          "slug",
+          "seo_title",
+          "seo_description",
+          "created_at",
+          "updated_at",
+          "children"
+        ],
+        "additionalProperties": {}
+      },
+      "PageWithSections": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "seo_title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "seo_description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageSection"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "site_id",
+          "parent_id",
+          "title",
+          "slug",
+          "seo_title",
+          "seo_description",
+          "created_at",
+          "updated_at",
+          "sections"
+        ],
+        "additionalProperties": {}
+      },
+      "PageSection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "page_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "body": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "page_id",
+          "title",
+          "body",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": {}
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/v1/listings": {
+      "get": {
+        "summary": "List listings for a Site API key",
+        "tags": [
+          "Integrator",
+          "Listings"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Site API key listing list. Address, price, description, dates, Stage name, and agent name, phone, and photo. Omits seller, seller contact id, Meta campaign ids, org id, team id, accepted Offer, agent email, and agent member ids.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteListListingsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/listings/{id}": {
+      "get": {
+        "summary": "Get a listing for a Site API key",
+        "tags": [
+          "Integrator",
+          "Listings"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Public listing. Address, price, description, dates, Stage name, and agent name, phone, and photo. Omits seller, seller contact id, Meta campaign ids, org id, team id, accepted Offer, agent email, and agent member ids.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteListing"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/listings/{id}/media": {
+      "get": {
+        "summary": "Listing media for a Site API key",
+        "tags": [
+          "Integrator",
+          "Listings"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listing media items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ListingMediaItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/site": {
+      "get": {
+        "summary": "Get the Site implied by a Site API key",
+        "tags": [
+          "Integrator",
+          "Sites"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Site branding and listing scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSite"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Site API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pages": {
+      "get": {
+        "summary": "List Pages as a title-ordered tree",
+        "tags": [
+          "Integrator",
+          "Pages"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page tree (no section HTML)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTree"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Site API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pages/{slug}": {
+      "get": {
+        "summary": "Get a Page by slug with its Sections",
+        "tags": [
+          "Integrator",
+          "Pages"
+        ],
+        "security": [
+          {
+            "SiteApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "slug",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page with sections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageWithSections"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Site API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}
