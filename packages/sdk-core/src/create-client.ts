@@ -38,6 +38,14 @@ export interface ScopedSimplerClient {
   ): this & TResources;
 }
 
+function extendFork<TBase extends object, TResources extends object>(
+  base: TBase,
+  request: SimplerTransport["request"],
+  define: (transport: SimplerTransport) => TResources,
+): TBase & TResources {
+  return { ...base, ...define({ request }) };
+}
+
 function scopedClient(
   config: TransportConfig,
   tenant: OrgTenantScope | TeamTenantScope,
@@ -46,7 +54,7 @@ function scopedClient(
   return {
     request: transport.request,
     withResources(define) {
-      return { ...this, ...define({ request: this.request }) };
+      return extendFork(this, this.request, define);
     },
   };
 }
@@ -60,7 +68,7 @@ export function createSimplerClient(config: SimplerClientConfig) {
   const rootTransport = createTransport(transportConfig);
 
   return {
-    /** Authenticated routes without org/team scope (e.g. `GET /me`). */
+    /** Authenticated routes that are not org, team, or site scoped. */
     request<T>(path: string, options?: RequestOptions): Promise<T> {
       return rootTransport.request(path, options);
     },
@@ -87,7 +95,7 @@ export function createSimplerClient(config: SimplerClientConfig) {
         pages: createPublicPagesResource(siteTransport),
         listings: createSiteListingsResource(siteTransport),
         withResources(define) {
-          return { ...this, ...define({ request: siteTransport.request }) };
+          return extendFork(this, siteTransport.request, define);
         },
       };
     },

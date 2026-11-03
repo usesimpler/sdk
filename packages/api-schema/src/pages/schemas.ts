@@ -1,6 +1,34 @@
 import "../patch-zod.js";
 import z from "zod";
 
+const pageIdentityFields = {
+  id: z.string(),
+  site_id: z.string(),
+  parent_id: z.string().nullable(),
+  title: z.string(),
+  slug: z.string(),
+  seo_title: z.string().nullable(),
+  seo_description: z.string().nullable(),
+  created_at: z.string(),
+  updated_at: z.string(),
+};
+
+type PageIdentity = {
+  id: string;
+  site_id: string;
+  parent_id: string | null;
+  title: string;
+  slug: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type PageNode = PageIdentity & {
+  children: PageNode[];
+};
+
 export const publicSiteSchema = z
   .object({
     id: z.string(),
@@ -15,7 +43,6 @@ export const publicSiteSchema = z
     listing_id: z.string().nullable(),
     listing_scope: z.enum(["all", "listing"]),
   })
-  .passthrough()
   .openapi("PublicSite");
 
 export const pageSectionSchema = z
@@ -27,56 +54,26 @@ export const pageSectionSchema = z
     created_at: z.string(),
     updated_at: z.string(),
   })
-  .passthrough()
   .openapi("PageSection");
-
-export type PageNode = {
-  id: string;
-  site_id: string;
-  parent_id: string | null;
-  title: string;
-  slug: string;
-  seo_title: string | null;
-  seo_description: string | null;
-  created_at: string;
-  updated_at: string;
-  children: PageNode[];
-};
 
 export const pageNodeSchema: z.ZodType<PageNode> = z
   .object({
-    id: z.string(),
-    site_id: z.string(),
-    parent_id: z.string().nullable(),
-    title: z.string(),
-    slug: z.string(),
-    seo_title: z.string().nullable(),
-    seo_description: z.string().nullable(),
-    created_at: z.string(),
-    updated_at: z.string(),
+    ...pageIdentityFields,
     children: z.array(z.lazy(() => pageNodeSchema)),
   })
-  .passthrough()
   .openapi("PageNode");
 
 export const pageWithSectionsSchema = z
   .object({
-    id: z.string(),
-    site_id: z.string(),
-    parent_id: z.string().nullable(),
-    title: z.string(),
-    slug: z.string(),
-    seo_title: z.string().nullable(),
-    seo_description: z.string().nullable(),
-    created_at: z.string(),
-    updated_at: z.string(),
+    ...pageIdentityFields,
     sections: z.array(pageSectionSchema),
   })
-  .passthrough()
   .openapi("PageWithSections");
 
 export const pageTreeSchema = z.array(pageNodeSchema).openapi("PageTree");
 
 export type PublicSite = z.infer<typeof publicSiteSchema>;
 export type PageSection = z.infer<typeof pageSectionSchema>;
-export type PageWithSections = z.infer<typeof pageWithSectionsSchema>;
+export type PageWithSections = PageIdentity & {
+  sections: PageSection[];
+};

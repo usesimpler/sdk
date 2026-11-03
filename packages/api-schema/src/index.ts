@@ -10,12 +10,7 @@ export {
   siteListingSchema,
   siteListListingsResponseSchema,
 } from "./listings/site-listing.js";
-export type {
-  IntegratorListingMediaItem,
-  IntegratorSiteListing,
-  IntegratorSiteListListingsResponse,
-  SafeParseResult,
-} from "./listings/validate.js";
+export type { SafeParseResult } from "./listings/validate.js";
 export {
   safeParseListingMediaList,
   safeParseSiteListing,

@@ -519,8 +519,7 @@
           "logo_display_height",
           "listing_id",
           "listing_scope"
-        ],
-        "additionalProperties": {}
+        ]
       },
       "PageTree": {
         "type": "array",
@@ -585,8 +584,7 @@
           "created_at",
           "updated_at",
           "children"
-        ],
-        "additionalProperties": {}
+        ]
       },
       "PageWithSections": {
         "type": "object",
@@ -645,8 +643,7 @@
           "created_at",
           "updated_at",
           "sections"
-        ],
-        "additionalProperties": {}
+        ]
       },
       "PageSection": {
         "type": "object",
@@ -680,8 +677,7 @@
           "body",
           "created_at",
           "updated_at"
-        ],
-        "additionalProperties": {}
+        ]
       }
     },
     "parameters": {}

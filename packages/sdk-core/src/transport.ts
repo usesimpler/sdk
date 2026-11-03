@@ -43,29 +43,30 @@ async function resolveAccessToken(auth: SimplerAuth): Promise<string | null> {
   return auth.getAccessToken();
 }
 
-function applyTenantToUrl(url: string, tenant: TenantScope | undefined): string {
-  if (!tenant) return url;
+function applyTenant(
+  url: string,
+  tenant: TenantScope | undefined,
+): { url: string; headers: Record<string, string> } {
+  if (!tenant || tenant.kind === "site") return { url, headers: {} };
   const sep = url.includes("?") ? "&" : "?";
   if (tenant.kind === "org") {
-    if (tenant.orgSlug) return `${url}${sep}org_slug=${encodeURIComponent(tenant.orgSlug)}`;
-    if (tenant.orgId) return `${url}${sep}org_id=${encodeURIComponent(tenant.orgId)}`;
-    return url;
+    if (tenant.orgSlug) {
+      return {
+        url: `${url}${sep}org_slug=${encodeURIComponent(tenant.orgSlug)}`,
+        headers: { "X-Org-Slug": tenant.orgSlug },
+      };
+    }
+    if (tenant.orgId) {
+      return {
+        url: `${url}${sep}org_id=${encodeURIComponent(tenant.orgId)}`,
+        headers: { "X-Org-Id": tenant.orgId },
+      };
+    }
+    return { url, headers: {} };
   }
-  if (tenant.kind === "site") return url;
-  if (url.includes("team_id=")) return url;
-  return `${url}${sep}team_id=${encodeURIComponent(tenant.teamId)}`;
-}
-
-function tenantHeaders(tenant: TenantScope | undefined): Record<string, string> {
-  if (!tenant) return {};
-  if (tenant.kind === "org") {
-    const headers: Record<string, string> = {};
-    if (tenant.orgSlug) headers["X-Org-Slug"] = tenant.orgSlug;
-    if (tenant.orgId) headers["X-Org-Id"] = tenant.orgId;
-    return headers;
-  }
-  if (tenant.kind === "site") return {};
-  return { "X-Team-Id": tenant.teamId };
+  const headers = { "X-Team-Id": tenant.teamId };
+  if (url.includes("team_id=")) return { url, headers };
+  return { url: `${url}${sep}team_id=${encodeURIComponent(tenant.teamId)}`, headers };
 }
 
 /** True when fetch was aborted by `AbortSignal.timeout` (undici `TimeoutError`). */
@@ -93,8 +94,8 @@ export function createTransport(config: TransportConfig, tenant?: TenantScope): 
       throw new Error(`Invalid API path: "${path}" would request API root`);
     }
 
-    let url = `${apiBase}${versionedPath}`;
-    url = applyTenantToUrl(url, tenant);
+    const tenantRequest = applyTenant(`${apiBase}${versionedPath}`, tenant);
+    const url = tenantRequest.url;
 
     const {
       timeoutMs = defaultTimeoutMs,
@@ -114,7 +115,7 @@ export function createTransport(config: TransportConfig, tenant?: TenantScope): 
     const headers: Record<string, string> = {
       ...(json && !isFormData ? { "Content-Type": "application/json" } : {}),
       ...(rest.headers as Record<string, string> | undefined),
-      ...tenantHeaders(tenant),
+      ...tenantRequest.headers,
     };
 
     const token = await resolveAccessToken(config.auth);

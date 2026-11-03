@@ -72,7 +72,7 @@ describe("createTransport", () => {
         ok: true,
         status: 200,
         blob: async () => blob,
-        url: "http://api.test/v1/contacts/export?team_id=t1",
+        url: "http://api.test/v1/files/export?team_id=t1",
       }),
     );
 
@@ -81,7 +81,7 @@ describe("createTransport", () => {
       teamTenant("t1"),
     );
 
-    const result = await request<Blob>("/contacts/export", { response: "blob" });
+    const result = await request<Blob>("/files/export", { response: "blob" });
     expect(result).toBe(blob);
   });
 

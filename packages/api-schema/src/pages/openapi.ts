@@ -1,9 +1,8 @@
 import type { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import z from "zod";
+import { apiErrorSchema } from "../openapi/api-error.js";
 import "../patch-zod.js";
 import { pageTreeSchema, pageWithSectionsSchema, publicSiteSchema } from "./schemas.js";
-
-const apiErrorSchema = z.object({ error: z.string() });
 const siteKeySecurity = [{ SiteApiKeyAuth: [] }];
 
 export function registerPagesIntegratorPaths(registry: OpenAPIRegistry): void {
