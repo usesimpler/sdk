@@ -26,7 +26,7 @@ While the API is on 0.x, the current and previous minor are supported. A changel
 npm install @usesimpler/sdk-core@canary
 ```
 
-Publishing uses the `NPM_TOKEN` repository secret (an npm automation token that can publish `@usesimpler`) together with GitHub's OIDC token for provenance.
+Publishing authenticates with GitHub Actions OIDC through an npm trusted publisher on each package. There is no npm token in CI. Provenance is generated for those public publishes.
 
 ## Licence
 
