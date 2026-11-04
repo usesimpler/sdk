@@ -1,6 +1,6 @@
 {
   "name": "@usesimpler/api-schema",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Integrator schema package for the Simpler API surface. A dependency of the Simpler API client, not a library integrators import directly.",
   "license": "MIT",
   "type": "module",
@@ -33,7 +33,9 @@
       "default": "./dist/listings/site-listing.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "provenance": true
