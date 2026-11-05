@@ -32,9 +32,30 @@ export type SiteSurfaceContractOptions = {
     parsePublicSite: (value: unknown) => { id: string; slug: string };
     parsePageTree: (value: unknown) => readonly PageNodeLike[];
     parsePage: (value: unknown) => { slug: string; sections: readonly unknown[] };
+    parseListing: (value: unknown) => ListingBody;
     parseMediaList: (value: unknown) => readonly unknown[];
   };
 };
+
+type SchemaParsers = SiteSurfaceContractOptions["schemas"];
+
+type SiteSurfaceSchemaModule = {
+  publicSiteSchema: { parse(value: unknown): { id: string; slug: string } };
+  pageTreeSchema: { parse(value: unknown): readonly PageNodeLike[] };
+  pageWithSectionsSchema: { parse(value: unknown): { slug: string; sections: readonly unknown[] } };
+  siteListingSchema: { parse(value: unknown): ListingBody };
+  listingMediaItemSchema: { array(): { parse(value: unknown): readonly unknown[] } };
+};
+
+export function siteSurfaceParsers(schemas: SiteSurfaceSchemaModule): SchemaParsers {
+  return {
+    parsePublicSite: (value) => schemas.publicSiteSchema.parse(value),
+    parsePageTree: (value) => schemas.pageTreeSchema.parse(value),
+    parsePage: (value) => schemas.pageWithSectionsSchema.parse(value),
+    parseListing: (value) => schemas.siteListingSchema.parse(value),
+    parseMediaList: (value) => schemas.listingMediaItemSchema.array().parse(value),
+  };
+}
 
 export class SiteSurfaceContractError extends Error {
   constructor(message: string) {
@@ -90,14 +111,13 @@ export async function runSiteSurfaceContract(options: SiteSurfaceContractOptions
   }
 
   const listings = await site.listings.list();
-  if (listings.length === 0) {
-    throw new SiteSurfaceContractError("Site surface returned no listings.");
-  }
-  const listed = listings[0];
-  if (!listed?.id) throw new SiteSurfaceContractError("Listing is missing an id.");
+  const first = listings[0];
+  if (!first) throw new SiteSurfaceContractError("Site surface returned no listings.");
+  const listed = options.schemas.parseListing(first);
+  if (!listed.id) throw new SiteSurfaceContractError("Listing is missing an id.");
   assertNoSeller(listed);
 
-  const fetched = await site.listings.get(listed.id);
+  const fetched = options.schemas.parseListing(await site.listings.get(listed.id));
   if (fetched.id !== listed.id) {
     throw new SiteSurfaceContractError("Listing get returned a different id.");
   }

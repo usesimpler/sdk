@@ -6,10 +6,11 @@ import {
   pageTreeSchema,
   pageWithSectionsSchema,
   publicSiteSchema,
+  siteListingSchema,
 } from "@usesimpler/api-schema";
 import { afterEach, describe, expect, it } from "vitest";
 import { createSimplerClient } from "../create-client.js";
-import { runSiteSurfaceContract } from "./site-surface.js";
+import { runSiteSurfaceContract, siteSurfaceParsers } from "./site-surface.js";
 
 function fixture(name: string): unknown {
   return JSON.parse(
@@ -20,12 +21,13 @@ function fixture(name: string): unknown {
 const listings = fixture("site-listings.json") as { data: { id: string }[] };
 const listing = listings.data[0];
 
-const schemas = {
-  parsePublicSite: (value: unknown) => publicSiteSchema.parse(value),
-  parsePageTree: (value: unknown) => pageTreeSchema.parse(value),
-  parsePage: (value: unknown) => pageWithSectionsSchema.parse(value),
-  parseMediaList: (value: unknown) => listingMediaItemSchema.array().parse(value),
-};
+const schemas = siteSurfaceParsers({
+  publicSiteSchema,
+  pageTreeSchema,
+  pageWithSectionsSchema,
+  siteListingSchema,
+  listingMediaItemSchema,
+});
 
 async function serve(routes: Record<string, unknown>): Promise<{
   apiBase: string;

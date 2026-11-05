@@ -4,9 +4,10 @@ import {
   pageTreeSchema,
   pageWithSectionsSchema,
   publicSiteSchema,
+  siteListingSchema,
 } from "@usesimpler/api-schema";
 import { createSimplerClient } from "../create-client.js";
-import { runSiteSurfaceContract } from "./site-surface.js";
+import { runSiteSurfaceContract, siteSurfaceParsers } from "./site-surface.js";
 
 const apiBase = process.env.SIMPLER_API_BASE;
 const siteApiKey = process.env.SITE_API_KEY;
@@ -20,12 +21,13 @@ runSiteSurfaceContract({
   apiBase,
   siteApiKey,
   createClient: createSimplerClient,
-  schemas: {
-    parsePublicSite: (value) => publicSiteSchema.parse(value),
-    parsePageTree: (value) => pageTreeSchema.parse(value),
-    parsePage: (value) => pageWithSectionsSchema.parse(value),
-    parseMediaList: (value) => listingMediaItemSchema.array().parse(value),
-  },
+  schemas: siteSurfaceParsers({
+    publicSiteSchema,
+    pageTreeSchema,
+    pageWithSectionsSchema,
+    siteListingSchema,
+    listingMediaItemSchema,
+  }),
 }).catch((err: unknown) => {
   const message = err instanceof Error ? err.message : String(err);
   console.error(message);
