@@ -21,7 +21,15 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./contract": {
+      "types": "./dist/contract/site-surface.d.ts",
+      "import": "./dist/contract/site-surface.js",
+      "default": "./dist/contract/site-surface.js"
     }
+  },
+  "bin": {
+    "site-surface-contract": "./dist/contract/cli.js"
   },
   "files": [
     "dist"

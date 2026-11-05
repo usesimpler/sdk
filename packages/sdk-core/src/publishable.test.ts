@@ -5,7 +5,9 @@ import { describe, expect, it } from "vitest";
 import { createSimplerClient, type SiteScopedSimplerClient } from "./create-client.js";
 import type { PageNode, PageWithSections, PublicSite, SiteListing } from "./index.js";
 
-const corePackage = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")) as {
+const corePackage = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+) as {
   private?: boolean;
   version: string;
   dependencies?: Record<string, string>;
@@ -46,6 +48,8 @@ function readDist(): string {
     for (const entry of readdirSync(dir)) {
       const path = join(dir.pathname, entry);
       if (statSync(path).isDirectory()) {
+        // The contract suite is a separate entry. It imports schema names; the client bundle must not.
+        if (entry === "contract") continue;
         walk(new URL(`${entry}/`, dir));
         continue;
       }
@@ -87,7 +91,9 @@ describe("Simpler API client publish surface", () => {
       cwd: new URL("..", import.meta.url),
       encoding: "utf8",
     });
-    const parsed = JSON.parse(raw) as { files: Array<{ path: string }> } | Array<{ files: Array<{ path: string }> }>;
+    const parsed = JSON.parse(raw) as
+      | { files: Array<{ path: string }> }
+      | Array<{ files: Array<{ path: string }> }>;
     const packed = Array.isArray(parsed) ? parsed[0] : parsed;
     const paths = packed?.files.map((file) => file.path) ?? [];
 

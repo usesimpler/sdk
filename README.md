@@ -18,6 +18,16 @@ npm install @usesimpler/sdk-core
 
 While the API is on 0.x, the current and previous minor are supported. A changelog deprecation notice is published before a minor is dropped. After 1.0, each major is supported for at least 12 months.
 
+A minor or major leaves that window only after a line in [CHANGELOG.md](CHANGELOG.md) such as `Dropped support for 0.2.` or `Dropped support for 1.x.`
+
+## Site surface contract
+
+`@usesimpler/sdk-core` ships a contract suite for the Site surface. Point it at a running API and a Site API key. The suite reads Site branding, Pages, Listings, and listing media through `forSite`, and fails when a response no longer matches that version's schemas.
+
+```sh
+SIMPLER_API_BASE=http://127.0.0.1:4000 SITE_API_KEY=site_... npx site-surface-contract
+```
+
 ## Releases
 
 `@usesimpler/api-schema` and `@usesimpler/sdk-core` version in lockstep with [Changesets](.changeset/config.json). Merging the version pull request publishes both packages to npmjs.com with provenance. Every merge to `main` also publishes a canary under the `canary` dist-tag:
