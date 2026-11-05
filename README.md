@@ -18,7 +18,7 @@ npm install @usesimpler/sdk-core
 
 While the API is on 0.x, the current and previous minor are supported. A changelog deprecation notice is published before a minor is dropped. After 1.0, each major is supported for at least 12 months.
 
-Dropped support for 0.0. The 0.0.0 publish is not an integrator release. The oldest supported version is 0.1.0. A minor or major leaves the window only after a line in [CHANGELOG.md](CHANGELOG.md) such as `Dropped support for 0.0.` or `Dropped support for 1.x.`
+A minor or major leaves that window only after a line in [CHANGELOG.md](CHANGELOG.md) such as `Dropped support for 0.2.` or `Dropped support for 1.x.`
 
 ## Site surface contract
 
