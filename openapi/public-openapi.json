@@ -56,13 +56,15 @@
             "type": [
               "number",
               "null"
-            ]
+            ],
+            "description": "Sale price in integer cents (for example, 79900000 is $799,000.00)."
           },
           "lease_amount": {
             "type": [
               "number",
               "null"
-            ]
+            ],
+            "description": "Lease amount in integer cents per `lease_amount_frequency` period (for example, 240000 is $2,400.00)."
           },
           "lease_amount_frequency": {
             "type": [
