@@ -1,6 +1,6 @@
 {
   "name": "@usesimpler/sdk-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simpler API client for the Integrator API surface.",
   "license": "MIT",
   "type": "module",
