@@ -60,8 +60,21 @@ export const siteListingSchema = z
   .object({
     id: z.string(),
     listing_type: z.enum(["sale", "lease"]).optional(),
-    list_price: z.number().nullable().optional(),
-    lease_amount: z.number().nullable().optional(),
+    list_price: z
+      .number()
+      .nullable()
+      .optional()
+      .openapi({
+        description: "Sale price in integer cents (for example, 79900000 is $799,000.00).",
+      }),
+    lease_amount: z
+      .number()
+      .nullable()
+      .optional()
+      .openapi({
+        description:
+          "Lease amount in integer cents per `lease_amount_frequency` period (for example, 240000 is $2,400.00).",
+      }),
     lease_amount_frequency: z.string().nullable().optional(),
     list_date: z.string().nullable().optional(),
     expiry_date: z.string().nullable().optional(),
