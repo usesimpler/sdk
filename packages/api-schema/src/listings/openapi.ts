@@ -8,6 +8,16 @@ import { siteListingSchema, siteListListingsResponseSchema } from "./site-listin
 const siteListingBody =
   "Address, price, description, dates, Stage name, and agent name, phone, and photo. Omits seller, seller contact id, Meta campaign ids, org id, team id, accepted Offer, agent email, and agent member ids.";
 
+const siteNoIncludedStagesResponse = {
+  description:
+    "The Site has no included stages, so it cannot serve listings. Add at least one stage to the Site's included stages in Simpler.",
+  content: {
+    "application/json": {
+      schema: apiErrorSchema,
+    },
+  },
+};
+
 const listListingsResponses = {
   "200": {
     description: `Site API key listing list. ${siteListingBody}`,
@@ -17,6 +27,7 @@ const listListingsResponses = {
       },
     },
   },
+  "409": siteNoIncludedStagesResponse,
 };
 
 /** Site surface listing routes. */
@@ -56,6 +67,7 @@ export function registerListingsIntegratorPaths(registry: OpenAPIRegistry): void
           },
         },
       },
+      "409": siteNoIncludedStagesResponse,
     },
   });
 
@@ -77,6 +89,7 @@ export function registerListingsIntegratorPaths(registry: OpenAPIRegistry): void
           },
         },
       },
+      "409": siteNoIncludedStagesResponse,
     },
   });
 }

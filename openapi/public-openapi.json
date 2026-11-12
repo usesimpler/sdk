@@ -707,6 +707,24 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "The Site has no included stages, so it cannot serve listings. Add at least one stage to the Site's included stages in Simpler.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -761,6 +779,24 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "The Site has no included stages, so it cannot serve listings. Add at least one stage to the Site's included stages in Simpler.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -797,6 +833,24 @@
                   "items": {
                     "$ref": "#/components/schemas/ListingMediaItem"
                   }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The Site has no included stages, so it cannot serve listings. Add at least one stage to the Site's included stages in Simpler.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
                 }
               }
             }
