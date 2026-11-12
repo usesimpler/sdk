@@ -8,6 +8,8 @@ npm install @usesimpler/sdk-core
 
 `forSite` takes a Site API key and reads Site branding, Pages, and Listings with their media. `forTeam` and `forOrg` expose no resources.
 
+Non-2xx responses throw `SimplerApiError`, with the API's message and the HTTP `status`. A Site with no included stages cannot serve listings: `listings.list`, `listings.get`, and `listings.listMedia` throw a `409` whose message says to add at least one stage to the Site's included stages in Simpler. A Site with included stages but no matching listings returns an empty list.
+
 The public OpenAPI document is [`openapi/public-openapi.json`](../../openapi/public-openapi.json).
 
 ## Support window
